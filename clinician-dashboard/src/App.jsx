@@ -20,7 +20,7 @@ function LoginScreen({ onLoggedIn }) {
     setError(null);
     try {
       const res = await api.login(email, password);
-      if (res.user?.role !== 'clinician') {
+      if ((res.user?.role || '').toLowerCase() !== 'clinician') {
         throw new Error('This account is registered as a patient. Please sign in with a clinician account.');
       }
       onLoggedIn(res.token, res.user);
